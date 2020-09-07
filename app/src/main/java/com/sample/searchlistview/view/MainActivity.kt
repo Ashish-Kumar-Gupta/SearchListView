@@ -1,12 +1,14 @@
 package com.sample.searchlistview.view
 
 import android.app.SearchManager
+import android.content.ComponentName
 import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
-import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuItemCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     private val mainViewModel : MainViewModel by lazy {
         ViewModelProviders.of(this, mainViewModelFactory).get(MainViewModel::class.java)
     }
+    private var searchView: SearchView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,12 +53,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        (menu?.findItem(R.id.search)?.actionView as SearchView).apply {
-            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        val searchItem = menu?.findItem(R.id.search)
+        if (searchItem != null) {
+            searchView = MenuItemCompat.getActionView(searchItem) as SearchView
+            val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+            searchView?.setSearchableInfo(searchManager.getSearchableInfo(ComponentName(this, SearchResultsActivity::class.java)))
+            searchView?.queryHint = resources.getString(R.string.searchHint)
         }
-
         return true
+    }
+
+    override fun onBackPressed() {
+        if (!searchView?.isIconified!!) {
+            searchView?.onActionViewCollapsed()
+        } else {
+            super.onBackPressed()
+        }
     }
 
     private val progressObserver = Observer<Boolean> { isRefreshing ->

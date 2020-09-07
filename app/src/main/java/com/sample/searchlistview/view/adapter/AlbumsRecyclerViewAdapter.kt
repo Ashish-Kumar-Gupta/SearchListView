@@ -11,7 +11,7 @@ import com.sample.searchlistview.model.Album
 import com.sample.searchlistview.viewmodel.MainViewModel
 
 class AlbumsRecyclerViewAdapter(@LayoutRes private val layoutId: Int, private val mainViewModel: MainViewModel): RecyclerView.Adapter<AlbumsRecyclerViewAdapter.FactViewHolder>() {
-    private var factsList: List<Album>? = null
+    private var albumList: List<Album>? = null
 
     class FactViewHolder(viewDataBinding: ViewDataBinding): RecyclerView.ViewHolder(viewDataBinding.root) {
         private val viewDataBinding = viewDataBinding
@@ -32,8 +32,8 @@ class AlbumsRecyclerViewAdapter(@LayoutRes private val layoutId: Int, private va
     }
 
     override fun getItemCount(): Int {
-        if (factsList != null) {
-            return factsList?.size!!
+        if (albumList != null) {
+            return albumList?.size!!
         }
         return 0
     }
@@ -42,8 +42,8 @@ class AlbumsRecyclerViewAdapter(@LayoutRes private val layoutId: Int, private va
         holder.bind(mainViewModel, position)
     }
 
-    fun setFacts(factsList: List<Album>) {
-        this.factsList = factsList
+    fun setFacts(albumList: List<Album>) {
+        this.albumList = albumList
     }
 
     private fun getItemViewTypeForPosition(): Int {
