@@ -1,5 +1,7 @@
 package com.sample.searchlistview.viewmodel
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -41,8 +43,9 @@ class MainViewModel(private val useCase: UseCase): ViewModel(), KoinComponent {
 
     fun getAlbumsAdapter() = albumsRecyclerViewAdapter!!
 
-    fun setFactsAdapter(factsList: List<Album>) {
-        this.albumsRecyclerViewAdapter?.setFacts(factsList)
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun setFactsAdapter(albumList: List<Album>) {
+        this.albumsRecyclerViewAdapter?.setAlbums(albumList)
         this.albumsRecyclerViewAdapter?.notifyDataSetChanged()
     }
 

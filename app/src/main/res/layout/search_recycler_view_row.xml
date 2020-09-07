@@ -36,11 +36,11 @@
                 android:scaleType="centerCrop"/>
 
             <TextView
-                android:id="@+id/artistNameTextView"
+                android:id="@+id/trackNameTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
-                android:text="@{viewModel.getAlbumAtPosition(position).artistName}"
+                android:text="@{viewModel.getAlbumAtPosition(position).trackName}"
                 android:textColor="@color/titleText"
                 android:textSize="@dimen/_18ssp"
                 android:textStyle="bold"
@@ -53,15 +53,15 @@
                 android:ellipsize="end"/>
 
             <TextView
-                android:id="@+id/trackNameTextView"
+                android:id="@+id/artistNameTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
-                android:text="@{viewModel.getAlbumAtPosition(position).trackName}"
+                android:text="@{viewModel.getAlbumAtPosition(position).artistName}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/artistNameTextView"
+                app:layout_constraintTop_toBottomOf="@+id/trackNameTextView"
                 app:layout_constraintLeft_toRightOf="@+id/artworkUrImageView"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:singleLine="true"
@@ -76,7 +76,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trackNameTextView"
+                app:layout_constraintTop_toBottomOf="@+id/artistNameTextView"
                 app:layout_constraintLeft_toRightOf="@+id/artworkUrImageView"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:maxLines="2"

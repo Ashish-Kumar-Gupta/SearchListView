@@ -3,9 +3,11 @@ package com.sample.searchlistview.view
 import android.app.SearchManager
 import android.content.ComponentName
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     }
     private var searchView: SearchView? = null
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -75,6 +78,7 @@ class MainActivity : AppCompatActivity() {
         swipeRefreshLayout.isRefreshing = isRefreshing
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private val responseObserver = Observer<ResponseStatus<Albums>> { result ->
         when (result?.responseType) {
             RESPONSE.LOADING -> {
@@ -89,8 +93,10 @@ class MainActivity : AppCompatActivity() {
                     errorLayout.visibility = View.GONE
                 }
                 val albums = result.response as Albums
-                val  albumList =  albums.results as ArrayList<Album>
-                mainViewModel.setFactsAdapter(albumList)
+                val  albumList =  albums.results as List<Album>
+                mainViewModel.setFactsAdapter(albumList.distinctBy {
+                    it.trackName
+                })
             }
         }
     }

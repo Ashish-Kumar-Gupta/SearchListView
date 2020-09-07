@@ -42,8 +42,15 @@ class AlbumsRecyclerViewAdapter(@LayoutRes private val layoutId: Int, private va
         holder.bind(mainViewModel, position)
     }
 
-    fun setFacts(albumList: List<Album>) {
+    fun setAlbums(albumList: List<Album>) {
         this.albumList = albumList
+    }
+
+    fun getAlbums(): List<Album>? {
+        if (albumList != null) {
+            return albumList!!
+        }
+        return null
     }
 
     private fun getItemViewTypeForPosition(): Int {
